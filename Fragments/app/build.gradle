@@ -5,7 +5,11 @@ plugins {
 
 android {
     namespace 'com.example.fragments'
-    compileSdk 34
+    compileSdk 35
+
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "com.example.fragments"
