@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">About Me</string>
     <string name="name">Karan Karhale</string>
+    <string name="avatar_disc">avatar description</string>
 </resources>
