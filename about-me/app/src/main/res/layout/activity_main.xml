@@ -25,4 +25,21 @@
         android:contextClickable="false"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
+    <ScrollView
+        android:id="@+id/bio_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/layout_margin"
+        android:layout_marginRight="@dimen/layout_margin">
+
+        <TextView
+            android:id="@+id/bio_text"
+            style="@style/NameStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_info_text"
+            android:textAlignment="textStart"
+            android:textAllCaps="false" />
+    </ScrollView>
+
 </LinearLayout>
