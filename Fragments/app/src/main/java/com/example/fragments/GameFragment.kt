@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.fragments.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -48,7 +50,7 @@ class GameFragment : Fragment() {
         // Bind this fragment class to the layout
         binding.game = this
 
-        binding.submitButton.setOnClickListener {_: View ->
+        binding.submitButton.setOnClickListener {view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
             if (checkedId != -1) {
                 var clickedOption = 0
@@ -69,9 +71,11 @@ class GameFragment : Fragment() {
                         binding.invalidateAll()
                     } else {
                         /** all questions completed, we won!! Go to GameWonFragment **/
+                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
                     }
                 } else {
                     /** Game over! A wrong answer sends us to the gameOverFragment. **/
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
                 }
             }
         }
