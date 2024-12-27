@@ -2,36 +2,42 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.navigation.TitleFragment">
-    
+    tools:context=".GameWonFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/title_constraint"
+        android:id="@+id/gameWonConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/youWinBackground">
 
         <ImageView
-            android:id="@+id/titleImage"
+            android:id="@+id/gameWonImage"
             android:layout_width="0dp"
-            android:layout_height="@dimen/image_header_height"
+            android:layout_height="@dimen/game_over_height"
             android:layout_marginHorizontal="@dimen/horizontal_margin"
-            app:layout_constraintBottom_toTopOf="@+id/playButton"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/android_trivia" />
+            app:srcCompat="@drawable/you_win" />
 
         <Button
-            android:id="@+id/playButton"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/horizontal_margin"
-            android:text="@string/play"
+            android:paddingHorizontal="@dimen/button_padding"
             android:textSize="@dimen/button_text_size"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/next_game"
+            android:textColor="@color/youWinDark"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+            app:layout_constraintTop_toBottomOf="@+id/gameWonImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
