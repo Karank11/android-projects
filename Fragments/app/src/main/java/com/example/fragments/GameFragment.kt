@@ -71,7 +71,7 @@ class GameFragment : Fragment() {
                         binding.invalidateAll()
                     } else {
                         /** all questions completed, we won!! Go to GameWonFragment **/
-                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(questionIndex, numQuestions))
                     }
                 } else {
                     /** Game over! A wrong answer sends us to the gameOverFragment. **/
