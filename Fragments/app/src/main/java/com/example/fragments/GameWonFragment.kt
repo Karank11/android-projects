@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
@@ -33,7 +34,7 @@ class GameWonFragment : Fragment() {
 
                 /** check if the activity resolved, if not resolved then hide share icon **/
                 activity?.let {
-                    if (getShareIntent().resolveActivity(it.packageManager) == null) {
+                    if (getShareIntent()?.resolveActivity(it.packageManager) == null) {
                         menu.findItem(R.id.share_button).setVisible(false)
                     }
                 }
@@ -51,12 +52,15 @@ class GameWonFragment : Fragment() {
         return binding.root
     }
 
-    private fun getShareIntent(): Intent {
+    private fun getShareIntent(): Intent? {
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.setType("text/plain")
-            .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
-
+        var shareIntent: Intent? = null
+        activity?.let {
+            shareIntent = ShareCompat.IntentBuilder.from(it)
+                .setText(getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
+                .setType("text/plain")
+                .intent
+        }
         return shareIntent
     }
 }
