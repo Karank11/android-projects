@@ -44,6 +44,7 @@ class GameWonFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when(menuItem.itemId) {
                     R.id.share_button -> startActivity(getShareIntent())
+                    android.R.id.home -> return false
                 }
                 return true
             }
