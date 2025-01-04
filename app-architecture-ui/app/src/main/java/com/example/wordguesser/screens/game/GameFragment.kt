@@ -30,6 +30,7 @@ class GameFragment : Fragment() {
     }
 
     private fun setWordAndScore() {
+        if (index >= wordList.size) return
         word = wordList[index]
         binding.wordText.text = word
         binding.currentScoreText.text = score.toString()

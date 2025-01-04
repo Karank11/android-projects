@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_title" >
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -21,7 +26,13 @@
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_gameFragment_to_scoreFragment"
-            app:destination="@id/scoreFragment" />
+            app:destination="@id/scoreFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@+id/titleFragment"/>
     </fragment>
     <fragment
         android:id="@+id/scoreFragment"
@@ -29,9 +40,14 @@
         android:label="Score Fragment"
         tools:layout="@layout/fragment_score" >
         <action
-            android:id="@+id/action_scoreFragment_to_titleFragment"
-            app:destination="@id/titleFragment"
+            android:id="@+id/action_scoreFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/titleFragment" />
+
         <argument
             android:name="score"
             app:argType="integer"
