@@ -15,47 +15,18 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     private var word = ""
     private var score = 0
-    private lateinit var wordList: MutableList<String>
+    private var wordList: MutableList<String> = mutableListOf("queen", "hospital", "basketball", "cat", "change", "snail", "soup", "calendar", "sad", "desk", "guitar", "home", "railway", "zebra", "jelly", "car", "crow", "trade", "bag", "roll", "bubble")
     private var index = 0
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
-        resetList()
+        wordList.shuffle()
         setWordAndScore()
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
 
         return binding.root
-    }
-
-    private fun resetList() {
-        wordList = mutableListOf(
-            "queen",
-            "hospital",
-            "basketball",
-            "cat",
-            "change",
-            "snail",
-            "soup",
-            "calendar",
-            "sad",
-            "desk",
-            "guitar",
-            "home",
-            "railway",
-            "zebra",
-            "jelly",
-            "car",
-            "crow",
-            "trade",
-            "bag",
-            "roll",
-            "bubble"
-        )
-        wordList.shuffle()
     }
 
     private fun setWordAndScore() {
