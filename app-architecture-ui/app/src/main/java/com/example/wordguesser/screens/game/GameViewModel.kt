@@ -1,11 +1,11 @@
 package com.example.wordguesser.screens.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
-    var word = ""
-    var score = 0
     private var wordList: MutableList<String> = mutableListOf(
         "queen",
         "hospital",
@@ -30,10 +30,15 @@ class GameViewModel : ViewModel() {
         "bubble"
     )
     private var index = 0
+    private val _word = MutableLiveData<String>()
+    val word: LiveData<String> get() = _word
+    private val _score = MutableLiveData<Int>()
+    val score: LiveData<Int> get() = _score
 
     init {
         Log.i("GameViewModel", "GameViewModel is created!!")
         wordList.shuffle()
+        _score.value = 0
         setWord()
     }
 
@@ -43,18 +48,18 @@ class GameViewModel : ViewModel() {
     }
 
     fun onCorrect() {
-        score++
+        _score.value = score.value?.plus(1)
         setWord()
     }
 
      fun onSkip() {
-        score--
+        _score.value = score.value?.minus(1)
          setWord()
     }
 
     private fun setWord() {
         if (index < wordList.size) {
-            word = wordList[index++]
+            _word.value = wordList[index++]
         } else {
 //            gameFinished()
         }

@@ -23,25 +23,23 @@ class GameFragment : Fragment() {
         Log.i("GameFragment", "viewModelProvider is called for game VM")
         gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
-        updateWordAndScore()
+        gameViewModel.score.observe(viewLifecycleOwner) { newScore ->
+            binding.currentScoreText.text = newScore.toString()
+        }
+        gameViewModel.word.observe(viewLifecycleOwner) { newWord ->
+            binding.wordText.text = newWord
+        }
 
         binding.correctButton.setOnClickListener {
             gameViewModel.onCorrect()
-            updateWordAndScore()
         }
         binding.skipButton.setOnClickListener {
             gameViewModel.onSkip()
-            updateWordAndScore()
         }
         return binding.root
     }
 
-    private fun updateWordAndScore() {
-        binding.wordText.text = gameViewModel.word
-        binding.currentScoreText.text = gameViewModel.score.toString()
-    }
-
     private fun gameFinished() {
-        findNavController().navigate(GameFragmentDirections.actionGameFragmentToScoreFragment(gameViewModel.score))
+        findNavController().navigate(GameFragmentDirections.actionGameFragmentToScoreFragment(gameViewModel.score.value ?: 0))
     }
 }
