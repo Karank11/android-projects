@@ -1,11 +1,11 @@
 package com.example.wordguesser.screens.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
-    var word = ""
-    var score = 0
     private var wordList: MutableList<String> = mutableListOf(
         "queen",
         "hospital",
@@ -31,10 +31,21 @@ class GameViewModel : ViewModel() {
     )
     private var index = 0
 
+    private val _word = MutableLiveData<String>()
+    val word: LiveData<String> get() = _word
+
+    private val _score = MutableLiveData<Int>()
+    val score: LiveData<Int> get() = _score
+
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+    val eventGameFinish: LiveData<Boolean> get() = _eventGameFinish
+
     init {
         Log.i("GameViewModel", "GameViewModel is created!!")
         wordList.shuffle()
+        _score.value = 0
         setWord()
+        _eventGameFinish.value = false
     }
 
     override fun onCleared() {
@@ -43,20 +54,24 @@ class GameViewModel : ViewModel() {
     }
 
     fun onCorrect() {
-        score++
+        _score.value = score.value?.plus(1)
         setWord()
     }
 
-     fun onSkip() {
-        score--
-         setWord()
+    fun onSkip() {
+        _score.value = score.value?.minus(1)
+        setWord()
     }
 
     private fun setWord() {
         if (index < wordList.size) {
-            word = wordList[index++]
+            _word.value = wordList[index++]
         } else {
-//            gameFinished()
+            _eventGameFinish.value = true
         }
+    }
+
+    fun onGameFinishComplete() {
+        _eventGameFinish.value = false
     }
 }
