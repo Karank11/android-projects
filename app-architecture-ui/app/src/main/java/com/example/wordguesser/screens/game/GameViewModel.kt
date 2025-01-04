@@ -30,16 +30,22 @@ class GameViewModel : ViewModel() {
         "bubble"
     )
     private var index = 0
+
     private val _word = MutableLiveData<String>()
     val word: LiveData<String> get() = _word
+
     private val _score = MutableLiveData<Int>()
     val score: LiveData<Int> get() = _score
+
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+    val eventGameFinish: LiveData<Boolean> get() = _eventGameFinish
 
     init {
         Log.i("GameViewModel", "GameViewModel is created!!")
         wordList.shuffle()
         _score.value = 0
         setWord()
+        _eventGameFinish.value = false
     }
 
     override fun onCleared() {
@@ -52,16 +58,20 @@ class GameViewModel : ViewModel() {
         setWord()
     }
 
-     fun onSkip() {
+    fun onSkip() {
         _score.value = score.value?.minus(1)
-         setWord()
+        setWord()
     }
 
     private fun setWord() {
         if (index < wordList.size) {
             _word.value = wordList[index++]
         } else {
-//            gameFinished()
+            _eventGameFinish.value = true
         }
+    }
+
+    fun onGameFinishComplete() {
+        _eventGameFinish.value = false
     }
 }

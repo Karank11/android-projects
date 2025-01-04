@@ -17,7 +17,9 @@ class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameViewModel: GameViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
 
         Log.i("GameFragment", "viewModelProvider is called for game VM")
@@ -28,6 +30,12 @@ class GameFragment : Fragment() {
         }
         gameViewModel.word.observe(viewLifecycleOwner) { newWord ->
             binding.wordText.text = newWord
+        }
+        gameViewModel.eventGameFinish.observe(viewLifecycleOwner) { isGameFinished ->
+            if (isGameFinished) {
+                gameFinished()
+                gameViewModel.onGameFinishComplete()
+            }
         }
 
         binding.correctButton.setOnClickListener {
@@ -40,6 +48,8 @@ class GameFragment : Fragment() {
     }
 
     private fun gameFinished() {
-        findNavController().navigate(GameFragmentDirections.actionGameFragmentToScoreFragment(gameViewModel.score.value ?: 0))
+        val currentScore = gameViewModel.score.value ?: 0
+        val action = GameFragmentDirections.actionGameFragmentToScoreFragment(currentScore)
+        findNavController().navigate(action)
     }
 }
