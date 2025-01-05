@@ -68,7 +68,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun setWord() {
-        if (currentTime.value == (0L).toString()) {
+        if (currentTime.value == DateUtils.formatElapsedTime(0)) {
             _eventGameFinish.value = true
         } else {
             if (index < wordList.size) {
