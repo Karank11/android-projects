@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@{gameViewModel.currentTime}"
             android:fontFamily="sans-serif"
             android:textColor="@color/grey_text_color"
             android:textSize="14sp"

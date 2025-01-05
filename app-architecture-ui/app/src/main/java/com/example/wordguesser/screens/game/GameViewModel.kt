@@ -1,6 +1,7 @@
 package com.example.wordguesser.screens.game
 
 import android.os.CountDownTimer
+import android.text.format.DateUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,29 +13,7 @@ class GameViewModel : ViewModel() {
         const val COUNTDOWN_TIME = 10000L
     }
 
-    private var wordList: MutableList<String> = mutableListOf(
-        "queen",
-        "hospital",
-        "basketball",
-        "cat",
-        "change",
-        "snail",
-        "soup",
-        "calendar",
-        "sad",
-        "desk",
-        "guitar",
-        "home",
-        "railway",
-        "zebra",
-        "jelly",
-        "car",
-        "crow",
-        "trade",
-        "bag",
-        "roll",
-        "bubble"
-    )
+    private var wordList: MutableList<String> = mutableListOf("queen","hospital","basketball","cat","change","snail","soup","calendar","sad","desk","guitar","home","railway","zebra","jelly","car","crow","trade","bag","roll","bubble")
     private var index = 0
 
     private val _word = MutableLiveData<String>()
@@ -47,8 +26,8 @@ class GameViewModel : ViewModel() {
     val eventGameFinish: LiveData<Boolean> get() = _eventGameFinish
 
     private val timer: CountDownTimer
-    private val _currentTime = MutableLiveData<Long>()
-    val currentTime: LiveData<Long> get() = _currentTime
+    private val _currentTime = MutableLiveData<String>()
+    val currentTime: LiveData<String> get() = _currentTime
 
     init {
         wordList.shuffle()
@@ -59,11 +38,13 @@ class GameViewModel : ViewModel() {
         // start time
         timer = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                _currentTime.value = millisUntilFinished / ONE_SECOND
+                val time = millisUntilFinished / ONE_SECOND
+                _currentTime.value = DateUtils.formatElapsedTime(time)
             }
 
             override fun onFinish() {
-                _currentTime.value = 0L
+                val time = 0L
+                _currentTime.value = time.toString()
                 _eventGameFinish.value = true
             }
         }
@@ -87,7 +68,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun setWord() {
-        if (currentTime.value == 0L) {
+        if (currentTime.value == (0L).toString()) {
             _eventGameFinish.value = true
         } else {
             if (index < wordList.size) {
