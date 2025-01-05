@@ -20,16 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif"
             android:text="@string/word_is"
-            android:textColor="@color/black_text_color"
-            android:textSize="14sp"
-            android:textStyle="normal"
+            style="@style/MediumTextStyle"
             app:layout_constraintBottom_toTopOf="@id/word_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"/>
 
         <TextView
             android:id="@+id/word_text"
@@ -37,16 +34,13 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:text="@{@string/quote_format(gameViewModel.word)}"
-            android:fontFamily="sans-serif"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textSize="34sp"
-            android:textStyle="normal"
+            style="@style/LargeTextStyle"
             app:layout_constraintBottom_toTopOf="@id/current_score_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/word_is_text"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="&quot;Tuna&quot;" />
+            tools:text="&quot;Tuna&quot;"/>
 
         <TextView
             android:id="@+id/timer_text"
@@ -55,10 +49,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="8dp"
             android:text="@{gameViewModel.currentTime}"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/grey_text_color"
-            android:textSize="14sp"
-            android:textStyle="normal"
+            style="@style/SmallTextStyle"
             app:layout_constraintBottom_toTopOf="@+id/current_score_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,9 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:text="@{@string/score_format(gameViewModel.score)}"
-            android:textColor="@color/grey_text_color"
-            android:textSize="14sp"
-            android:textStyle="normal"
+            style="@style/SmallTextStyle"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
