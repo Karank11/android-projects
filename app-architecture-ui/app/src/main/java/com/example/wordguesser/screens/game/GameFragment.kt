@@ -1,8 +1,6 @@
 package com.example.wordguesser.screens.game
 
 import android.os.Bundle
-import android.text.format.DateUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,16 +20,11 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
-
-        Log.i("GameFragment", "viewModelProvider is called for game VM")
         gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
-        gameViewModel.score.observe(viewLifecycleOwner) { newScore ->
-            binding.currentScoreText.text = newScore.toString()
-        }
-        gameViewModel.word.observe(viewLifecycleOwner) { newWord ->
-            binding.wordText.text = newWord
-        }
+        binding.gameViewModel = gameViewModel
+        binding.lifecycleOwner = this
+
         gameViewModel.eventGameFinish.observe(viewLifecycleOwner) { isGameFinished ->
             if (isGameFinished) {
                 gameFinished()
@@ -39,16 +32,6 @@ class GameFragment : Fragment() {
             }
         }
 
-        gameViewModel.currentTime.observe(viewLifecycleOwner) { newTime ->
-            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
-        }
-
-        binding.correctButton.setOnClickListener {
-            gameViewModel.onCorrect()
-        }
-        binding.skipButton.setOnClickListener {
-            gameViewModel.onSkip()
-        }
         return binding.root
     }
 
